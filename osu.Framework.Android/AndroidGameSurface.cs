@@ -69,10 +69,13 @@ namespace osu.Framework.Android
 
         private void setPreferredDisplayMode(bool enable)
         {
+            if (!OperatingSystem.IsAndroidVersionAtLeast(23))
+                return;
+
             var window = activity.Window;
             var display = window?.DecorView?.Display;
 
-            if (!OperatingSystem.IsAndroidVersionAtLeast(23) || window == null || display == null)
+            if (window == null || display == null)
                 return;
 
             var supportedModes = display.GetSupportedModes();
